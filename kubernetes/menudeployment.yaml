@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: menu-deployment
+spec:
+  selector:
+    matchLabels:
+      app: menu
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: menu
+    spec:
+      containers:
+      - image: us.icr.io/pt1417/menu:1.0
+        name: menu
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: menuvolume
+          mountPath: "/config"
+      restartPolicy: Always
+      volumes:
+      - name: menuvolume
+        configMap:
+          name: menucm
+          items:
+          - key: application.properties 
+            path: application.properties
