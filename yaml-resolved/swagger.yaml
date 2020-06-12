@@ -1,0 +1,61 @@
+openapi: 3.0.0
+info:
+  title: Menu API
+  description: This API is used for restaurant order
+  termsOfService: www.ibm.com
+  contact:
+    name: Paul
+    url: www.ibm.com
+    email: thaip@us.ibm.com
+  license:
+    name: IBM license
+    url: www.ibm.com
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/pt1417/thaip_Menu/1.0.0
+  description: SwaggerHub API Auto Mocking
+paths:
+  /menu/menu/{menuItemNumber}:
+    get:
+      summary: Get information about a menu
+      description: Get menu based on menuItemNumber
+      parameters:
+      - name: menuItemNumber
+        in: path
+        description: menu information
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/inline_response_200'
+components:
+  schemas:
+    inline_response_200:
+      properties:
+        menuItemNumber:
+          type: string
+          example: MENU-112
+        category:
+          type: string
+          example: entry
+        name:
+          type: string
+          example: Salmon
+        description:
+          type: string
+          example: Grilled Salmon
+        numAvailable:
+          type: string
+          example: "2"
+        price:
+          type: number
+          example: 12.95
